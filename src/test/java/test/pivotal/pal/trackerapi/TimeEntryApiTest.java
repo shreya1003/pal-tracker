@@ -28,9 +28,9 @@ public class TimeEntryApiTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final long projectId = 123L;
-    private final long userId = 456L;
-    private TimeEntry timeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-08"), 8);
+    private final Long projectId = 123L;
+    private final Long userId = 456L;
+    private TimeEntry timeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-08"), 8L);
 
     @Test
     public void testCreate() throws Exception {
@@ -39,11 +39,13 @@ public class TimeEntryApiTest {
 
         assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
+        System.out.println(createResponse.getBody());
+
         DocumentContext createJson = parse(createResponse.getBody());
         assertThat(createJson.read("$.id", Long.class)).isGreaterThan(0);
         assertThat(createJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(createJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(createJson.read("$.date", String.class)).isEqualTo("2017-01-08");
+        assertThat(createJson.read("$.parse", String.class)).isEqualTo("2017-01-08");
         assertThat(createJson.read("$.hours", Long.class)).isEqualTo(8);
     }
 
@@ -79,16 +81,16 @@ public class TimeEntryApiTest {
         assertThat(readJson.read("$.id", Long.class)).isEqualTo(id);
         assertThat(readJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(readJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(readJson.read("$.date", String.class)).isEqualTo("2017-01-08");
+        assertThat(readJson.read("$.parse", String.class)).isEqualTo("2017-01-08");
         assertThat(readJson.read("$.hours", Long.class)).isEqualTo(8);
     }
 
     @Test
     public void testUpdate() throws Exception {
         Long id = createTimeEntry();
-        long projectId = 2L;
-        long userId = 3L;
-        TimeEntry updatedTimeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-09"), 9);
+        Long projectId = 2L;
+        Long userId = 3L;
+        TimeEntry updatedTimeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-09"), 9L);
 
 
         ResponseEntity<String> updateResponse = restTemplate.exchange("/time-entries/" + id, HttpMethod.PUT, new HttpEntity<>(updatedTimeEntry, null), String.class);
@@ -100,7 +102,7 @@ public class TimeEntryApiTest {
         assertThat(updateJson.read("$.id", Long.class)).isEqualTo(id);
         assertThat(updateJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(updateJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(updateJson.read("$.date", String.class)).isEqualTo("2017-01-09");
+        assertThat(updateJson.read("$.parse", String.class)).isEqualTo("2017-01-09");
         assertThat(updateJson.read("$.hours", Long.class)).isEqualTo(9);
     }
 
@@ -125,6 +127,7 @@ public class TimeEntryApiTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
+        System.out.println("llll"+response.getBody());
         return response.getBody().getId();
     }
 }

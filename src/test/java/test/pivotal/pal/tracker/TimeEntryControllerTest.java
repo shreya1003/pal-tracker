@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 public class TimeEntryControllerTest {
     private TimeEntryRepository timeEntryRepository;
+    
     private TimeEntryController controller;
 
     @Before
@@ -31,10 +32,10 @@ public class TimeEntryControllerTest {
     public void testCreate() throws Exception {
         long projectId = 123L;
         long userId = 456L;
-        TimeEntry timeEntryToCreate = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-08"), 8);
+        TimeEntry timeEntryToCreate = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-08"), 8l);
 
         long timeEntryId = 1L;
-        TimeEntry expectedResult = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-08"), 8);
+        TimeEntry expectedResult = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-08"), 8l);
         doReturn(expectedResult)
             .when(timeEntryRepository)
             .create(any(TimeEntry.class));
@@ -53,7 +54,7 @@ public class TimeEntryControllerTest {
         long timeEntryId = 1L;
         long projectId = 123L;
         long userId = 456L;
-        TimeEntry expected = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-08"), 8);
+        TimeEntry expected = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-08"), 8l);
         doReturn(expected)
             .when(timeEntryRepository)
             .find(timeEntryId);
@@ -79,8 +80,8 @@ public class TimeEntryControllerTest {
     @Test
     public void testList() throws Exception {
         List<TimeEntry> expected = asList(
-            new TimeEntry(1L, 123L, 456L, LocalDate.parse("2017-01-08"), 8),
-            new TimeEntry(2L, 789L, 321L, LocalDate.parse("2017-01-07"), 4)
+            new TimeEntry(1L, 123L, 456L, LocalDate.parse("2017-01-08"), 8l),
+            new TimeEntry(2L, 789L, 321L, LocalDate.parse("2017-01-07"), 4l)
         );
         doReturn(expected).when(timeEntryRepository).list();
 
@@ -96,7 +97,7 @@ public class TimeEntryControllerTest {
         long timeEntryId = 1L;
         long projectId = 987L;
         long userId = 654L;
-        TimeEntry expected = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-07"), 4);
+        TimeEntry expected = new TimeEntry(timeEntryId, projectId, userId, LocalDate.parse("2017-01-07"), 4L);
         doReturn(expected)
             .when(timeEntryRepository)
             .update(eq(timeEntryId), any(TimeEntry.class));
