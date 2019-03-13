@@ -16,7 +16,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
     public TimeEntry create(TimeEntry timeEntry) {
 
-        TimeEntry newEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getParse(), timeEntry.getHours());
+        TimeEntry newEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getDate(), timeEntry.getHours());
 
         repo.put(timeEntryId, newEntry);
 
@@ -27,7 +27,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
     @Override
     public TimeEntry update(long timeEntryId, TimeEntry timeEntry) {
-        TimeEntry updatedTimeEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getParse(), timeEntry.getHours());
+        TimeEntry updatedTimeEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getDate(), timeEntry.getHours());
 
         if (repo.get(timeEntryId) != null) {
             repo.put(timeEntryId, updatedTimeEntry);

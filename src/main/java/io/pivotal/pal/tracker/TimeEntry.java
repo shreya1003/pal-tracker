@@ -10,20 +10,20 @@ public class TimeEntry {
     private Long timeEntryId;
     private Long projectId;
     private Long userId;
-    private LocalDate parse;
+    private LocalDate date;
 
-    public TimeEntry(Long timeEntryId, Long projectId, Long userId, LocalDate parse, Long hours) {
+    public TimeEntry(Long timeEntryId, Long projectId, Long userId, LocalDate date, Long hours) {
         this.timeEntryId = timeEntryId;
         this.projectId = projectId;
         this.userId = userId;
-        this.parse = parse;
+        this.date = date;
         this.hours = hours;
     }
 
-    public TimeEntry(Long projectId, Long userId, LocalDate parse, Long hours) {
+    public TimeEntry(Long projectId, Long userId, LocalDate date, Long hours) {
         this.projectId = projectId;
         this.userId = userId;
-        this.parse = parse;
+        this.date = date;
         this.hours = hours;
     }
 
@@ -43,8 +43,8 @@ public class TimeEntry {
         return hours;
     }
 
-    public LocalDate getParse() {
-        return parse;
+    public LocalDate getDate() {
+        return date;
     }
 
     public Long getId() {
@@ -57,7 +57,6 @@ public class TimeEntry {
         return timeEntryId;
     }
 
-
     @Override
     public String toString() {
         return "TimeEntry{" +
@@ -65,7 +64,7 @@ public class TimeEntry {
                 ", timeEntryId=" + timeEntryId +
                 ", projectId=" + projectId +
                 ", userId=" + userId +
-                ", parse=" + parse +
+                ", date=" + date +
                 '}';
     }
 
@@ -78,11 +77,11 @@ public class TimeEntry {
                 Objects.equals(timeEntryId, timeEntry.timeEntryId) &&
                 Objects.equals(projectId, timeEntry.projectId) &&
                 Objects.equals(userId, timeEntry.userId) &&
-                Objects.equals(parse, timeEntry.parse);
+                Objects.equals(date, timeEntry.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(hours, timeEntryId, projectId, userId, parse);
+        return Objects.hash(hours, timeEntryId, projectId, userId, date);
     }
 }

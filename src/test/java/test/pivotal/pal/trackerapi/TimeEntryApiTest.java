@@ -45,7 +45,7 @@ public class TimeEntryApiTest {
         assertThat(createJson.read("$.id", Long.class)).isGreaterThan(0);
         assertThat(createJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(createJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(createJson.read("$.parse", String.class)).isEqualTo("2017-01-08");
+        assertThat(createJson.read("$.date", String.class)).isEqualTo("2017-01-08");
         assertThat(createJson.read("$.hours", Long.class)).isEqualTo(8);
     }
 
@@ -81,7 +81,7 @@ public class TimeEntryApiTest {
         assertThat(readJson.read("$.id", Long.class)).isEqualTo(id);
         assertThat(readJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(readJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(readJson.read("$.parse", String.class)).isEqualTo("2017-01-08");
+        assertThat(readJson.read("$.date", String.class)).isEqualTo("2017-01-08");
         assertThat(readJson.read("$.hours", Long.class)).isEqualTo(8);
     }
 
@@ -102,7 +102,7 @@ public class TimeEntryApiTest {
         assertThat(updateJson.read("$.id", Long.class)).isEqualTo(id);
         assertThat(updateJson.read("$.projectId", Long.class)).isEqualTo(projectId);
         assertThat(updateJson.read("$.userId", Long.class)).isEqualTo(userId);
-        assertThat(updateJson.read("$.parse", String.class)).isEqualTo("2017-01-09");
+        assertThat(updateJson.read("$.date", String.class)).isEqualTo("2017-01-09");
         assertThat(updateJson.read("$.hours", Long.class)).isEqualTo(9);
     }
 
