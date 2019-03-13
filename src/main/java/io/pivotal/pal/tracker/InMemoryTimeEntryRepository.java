@@ -35,7 +35,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
         } else {
             return null;
         }
-        
+
     }
 
     @Override
