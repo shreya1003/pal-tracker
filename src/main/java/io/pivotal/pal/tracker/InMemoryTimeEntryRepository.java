@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class InMemoryTimeEntryRepository implements  TimeEntryRepository{
+public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
-    private Map<Long,TimeEntry> repo = new HashMap<>();
+    private Map<Long, TimeEntry> repo = new HashMap<>();
 
     Long timeEntryId = 1L;
 
@@ -18,7 +18,7 @@ public class InMemoryTimeEntryRepository implements  TimeEntryRepository{
 
         TimeEntry newEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getParse(), timeEntry.getHours());
 
-        repo.put(timeEntryId , newEntry);
+        repo.put(timeEntryId, newEntry);
 
         timeEntryId++;
 
@@ -29,9 +29,12 @@ public class InMemoryTimeEntryRepository implements  TimeEntryRepository{
     public TimeEntry update(long timeEntryId, TimeEntry timeEntry) {
         TimeEntry updatedTimeEntry = new TimeEntry(timeEntryId, timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getParse(), timeEntry.getHours());
 
-        repo.put(timeEntryId, updatedTimeEntry);
-
-        return updatedTimeEntry;
+        if (repo.get(timeEntryId) != null) {
+            repo.put(timeEntryId, updatedTimeEntry);
+            return updatedTimeEntry;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -47,7 +50,7 @@ public class InMemoryTimeEntryRepository implements  TimeEntryRepository{
     @Override
     public List<TimeEntry> list() {
 
-        List<TimeEntry> listOfEntry=new ArrayList<>();
+        List<TimeEntry> listOfEntry = new ArrayList<>();
 
         repo.entrySet().forEach(entry -> listOfEntry.add(entry.getValue()));
 
