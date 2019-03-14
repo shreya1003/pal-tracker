@@ -7,7 +7,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import javax.sql.DataSource;
 
 @SpringBootApplication
 public class PalTrackerApplication {
@@ -19,9 +22,16 @@ public class PalTrackerApplication {
     }
 
 
-    @Bean
+    @Bean(name="InMemoryRepository")
     TimeEntryRepository timeEntryRepository() {
         return new InMemoryTimeEntryRepository();
+    }
+
+
+    @Bean(name="JDBCRepository")
+    @Primary
+    TimeEntryRepository jdbcRepository(DataSource dataSource) {
+        return new JdbcTimeEntryRepository(dataSource);
     }
 
     @Bean
